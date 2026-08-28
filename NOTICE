@@ -2,9 +2,10 @@ Corplex - Spatiotemporal Complexity Analysis Kernel
 Copyright (c) 2026 DeepSeek-AI / Jane Street & Cordis Contributors
 
 This product includes software developed under the Cordis Meta-Framework architecture,
-the OxCaml / Jane Street typed systems paradigm, and the Rzk formal verification project.
+the OxCaml / Jane Street typed systems paradigm, the Jane Street Magic-Trace high-resolution
+profiling architecture, and the Rzk formal verification project.
 
 Attributions & Upstream References:
 1. Cordis: Meta-Framework of Spatiotemporal Composability (DeepSeek-AI / Shigma, 2026)
-2. OxCaml: Jane Street Modes and Modern OCaml System (Jane Street Group LLC / INRIA)
+2. OxCaml & Magic-Trace: High-Resolution Tracing & Modal Systems (Jane Street Group LLC / INRIA)
 3. Rzk: Simplicial Homotopy Type Theory Proof Assistant (Nikolai Kudasov & Contributors)

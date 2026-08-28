@@ -67,6 +67,23 @@ let test_static_analyzer () =
   assert (branches = 2);
   Printf.printf "[PASS] Static AST Analyzer (Loop Depth = 2, Branches = 2)\n"
 
+let test_magic_trace () =
+  let buf = MagicTrace.create_buffer 100 in
+  let compute_val = MagicTrace.with_span buf ~name:"fast_matrix_block" ~category:"math" (fun () ->
+    let sum = ref 0 in
+    for i = 1 to 1000 do sum := !sum + i done;
+    !sum
+  ) in
+  assert (compute_val = 500500);
+  let evts = MagicTrace.snapshot buf in
+  assert (List.length evts = 2); (* 1 Begin, 1 End *)
+  let json = MagicTrace.to_perfetto_json evts in
+  assert (String.length json > 50);
+  let trigger = MagicTrace.create_trigger buf (Latency_Threshold_Ns 1000L) in
+  let triggered = MagicTrace.check_and_snapshot trigger ~duration_ns:50000L ~name:"test_spike" in
+  assert (Option.is_some triggered);
+  Printf.printf "[PASS] MagicTrace Nanosecond Span & Perfetto Exporter (Events Captured = %d)\n" (List.length evts)
+
 let () =
   Printf.printf "=== Running Corplex OxCaml Unit Tests ===\n";
   test_master_case_1 ();
@@ -75,4 +92,5 @@ let () =
   test_akra_bazzi ();
   test_amortized_array ();
   test_static_analyzer ();
+  test_magic_trace ();
   Printf.printf "=== All OxCaml Tests Successfully Passed! ===\n"

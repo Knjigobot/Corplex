@@ -3,4 +3,4 @@
  (public_name corplex)
  (synopsis "Cordis Spatiotemporal Complexity Analysis Kernel in OxCaml")
  (libraries)
- (modules types ast context effects static_analyzer recurrence_solver amortized spatiotemporal_complexity dynamic_profiler corplex))
+ (modules types ast context effects static_analyzer recurrence_solver amortized spatiotemporal_complexity dynamic_profiler magic_trace corplex))

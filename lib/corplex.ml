@@ -9,6 +9,7 @@ module RecurrenceSolver = Recurrence_solver
 module Amortized = Amortized
 module Spatiotemporal = Spatiotemporal_complexity
 module DynamicProfiler = Dynamic_profiler
+module MagicTrace = Magic_trace
 
 let analyze_recurrence ~a ~b ~c ~k =
   RecurrenceSolver.solve_master_theorem ~a ~b ~c ~k

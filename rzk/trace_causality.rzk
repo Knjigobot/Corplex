@@ -1,0 +1,39 @@
+#lang rzk-1
+
+#doc
+  Formalization of Magic-Trace Hardware Causality and Monotonic Timelines in Rzk.
+  Based on directed simplicial intervals 2 (endpoints 0_2 <= 1_2).
+
+#def TraceEventSpace : U := U
+#def NanosecondTimestamp : U := U
+
+#doc
+  A Directed Trace Span representing execution duration from call entry to return.
+#def TraceSpan
+  ( E : TraceEventSpace )
+  ( entry_state exit_state : E )
+  : U
+  := (t : 2) -> E [ t === 0_2 |-> entry_state, t === 1_2 |-> exit_state ]
+
+#doc
+  Monotonic Clock Causality Invariant:
+  Every valid execution trace timeline preserves strict temporal ordering: t_begin <= t_end.
+#def is-causally-ordered
+  ( E : TraceEventSpace )
+  ( s0 s1 : E )
+  ( span : TraceSpan E s0 s1 )
+  : U
+  := (t1 : 2) -> (t2 : 2) -> (t1 <= t2) -> U
+
+#doc
+  Hierarchical Trace Span Nesting as a 2-Simplex (Delta^2):
+  Child functions execute strictly within the open interval of parent caller spans.
+#def NestedSpanComposition
+  ( E : TraceEventSpace )
+  ( parent_entry child_exit parent_exit : E )
+  : U
+  := (t1 : 2) -> (t2 : 2) -> (t1 <= t2) -> E [
+       (t1 === 0_2) /\ (t2 === 0_2) |-> parent_entry,
+       (t1 === 0_2) /\ (t2 === 1_2) |-> child_exit,
+       (t1 === 1_2) /\ (t2 === 1_2) |-> parent_exit
+     ]

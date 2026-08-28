@@ -7,6 +7,7 @@ let print_banner () =
   Printf.printf "======================================================================\n";
   Printf.printf "  CORPLEX: Spatiotemporal Complexity Analysis Engine in OxCaml\n";
   Printf.printf "  Cordis Meta-Framework & Jane Street Modal System Runtime\n";
+  Printf.printf "  Featuring Magic-Trace High-Resolution Nanosecond Tracing\n";
   Printf.printf "======================================================================\n\n"
 
 let demo_master_theorem () =
@@ -69,11 +70,35 @@ let demo_spatiotemporal_tradeoffs () =
   Printf.printf "Pareto Status:    %s\n" (if analysis.is_pareto_optimal then "PARETO-OPTIMAL" else "SUB-OPTIMAL");
   Printf.printf "Recommendation:   %s\n" analysis.recommendation
 
+let demo_magic_trace () =
+  Printf.printf "\n--- [4] Jane Street Magic-Trace Nanosecond Profiling ---\n";
+  let trace_buf = MagicTrace.create_buffer 1000 in
+  Printf.printf "Recording high-resolution execution spans...\n";
+  
+  MagicTrace.with_span trace_buf ~name:"corplex_quant_pipeline" ~category:"pipeline" (fun () ->
+    MagicTrace.with_span trace_buf ~name:"ring_buffer_push_batch" ~category:"memory" (fun () ->
+      let sum = ref 0.0 in
+      for i = 1 to 50000 do
+        sum := !sum +. float_of_int (i mod 100)
+      done;
+      !sum
+    ) |> ignore;
+    MagicTrace.with_span trace_buf ~name:"asymptotic_regression_fit" ~category:"math" (fun () ->
+      let _ = Corplex.analyze_recurrence ~a:2.0 ~b:2.0 ~c:1.0 ~k:0.0 in
+      ()
+    )
+  );
+
+  let events = MagicTrace.snapshot trace_buf in
+  Printf.printf "Captured %d hardware-timed trace events in zero-GC circular buffer.\n" (List.length events);
+  Printf.printf "Export format: Google Perfetto / Chrome Trace Viewer JSON (ui.perfetto.dev)\n"
+
 let () =
   print_banner ();
   demo_master_theorem ();
   demo_amortized_analysis ();
   demo_spatiotemporal_tradeoffs ();
+  demo_magic_trace ();
   Printf.printf "\n======================================================================\n";
   Printf.printf "  Corplex Native OxCaml Execution Completed Successfully.\n";
   Printf.printf "======================================================================\n"
