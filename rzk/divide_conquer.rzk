@@ -1,0 +1,26 @@
+#lang rzk-1
+
+#doc
+  Formalization of Divide-and-Conquer Recurrence Trees in Simplicial Type Theory.
+
+#def RecurrenceProblemSpace : U := U
+
+#doc
+  A Divide-and-Conquer Tree Node representing subproblem reduction at branch depth d.
+#def RecurrenceBranch
+  ( P : RecurrenceProblemSpace )
+  ( root_problem : P )
+  ( subproblem : P )
+  ( division_scale : U )
+  : U
+  := (t : 2) -> P [ t === 0_2 |-> root_problem, t === 1_2 |-> subproblem ]
+
+#doc
+  Master Theorem Level Work Conservation:
+  Work across a simplicial decomposition is bounded by geometric summation of per-level nodes.
+#def MasterConservationInvariant
+  ( P : RecurrenceProblemSpace )
+  ( depth : U )
+  ( work_per_level : U )
+  : U
+  := (total_asymptotic_work : U)

@@ -1,0 +1,36 @@
+#lang rzk-1
+
+#doc
+  Formalization of Computational Complexity State Spaces and Directed Step Paths in Rzk.
+  Based on simplicial homotopy type theory on the directed interval 2 (endpoints 0_2 <= 1_2).
+
+#def ComputationSpace : U := U
+
+#doc
+  A Computation Step is a directed path between two computation states.
+#def ComputationStep
+  ( C : ComputationSpace )
+  ( s0 s1 : C )
+  : U
+  := (t : 2) -> C [ t === 0_2 |-> s0, t === 1_2 |-> s1 ]
+
+#doc
+  Cost Functor assigning non-negative computational weight to a directed reduction step.
+#def CostFunction
+  ( C : ComputationSpace )
+  : U
+  := (s0 : C) -> (s1 : C) -> ComputationStep C s0 s1 -> U
+
+#doc
+  Sequential Composition of Two Computational Steps as a 2-Simplex (Delta^2).
+#def StepComposition
+  ( C : ComputationSpace )
+  ( s0 s1 s2 : C )
+  ( step01 : ComputationStep C s0 s1 )
+  ( step12 : ComputationStep C s1 s2 )
+  : U
+  := (t1 : 2) -> (t2 : 2) -> (t1 <= t2) -> C [
+       (t1 === 0_2) /\ (t2 === 0_2) |-> s0,
+       (t1 === 0_2) /\ (t2 === 1_2) |-> s1,
+       (t1 === 1_2) /\ (t2 === 1_2) |-> s2
+     ]

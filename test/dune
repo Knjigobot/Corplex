@@ -1,0 +1,4 @@
+(test
+ (name test_corplex)
+ (modules test_corplex)
+ (libraries corplex))

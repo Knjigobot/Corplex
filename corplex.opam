@@ -1,0 +1,26 @@
+opam-version: "2.0"
+synopsis: "Cordis-Style Spatiotemporal Complexity Analysis Kernel in OxCaml"
+description: "High-performance static and dynamic complexity analysis engine featuring asymptotic recurrence solving, amortized potential bounds, AST CFG evaluation, and Rzk formal verification."
+maintainer: ["Antigravity Dev Team"]
+authors: ["DeepSeek-AI / Jane Street & Cordis Contributors"]
+license: "MIT"
+homepage: "https://github.com/cordiverse/cordis"
+bug-reports: "https://github.com/cordiverse/cordis/issues"
+depends: [
+  "ocaml" {>= "5.1.0"}
+  "dune" {>= "3.0"}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]

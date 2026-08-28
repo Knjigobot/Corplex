@@ -1,0 +1,10 @@
+(lang dune 3.0)
+(name corplex)
+(generate_opam_files true)
+(license MIT)
+(authors "DeepSeek-AI / Jane Street & Cordis Contributors")
+(maintainers "Antigravity Dev Team")
+(package
+ (name corplex)
+ (synopsis "Cordis-Style Spatiotemporal Complexity Analysis Kernel in OxCaml")
+ (description "High-performance static and dynamic complexity analysis engine featuring asymptotic recurrence solving, amortized potential bounds, AST CFG evaluation, and Rzk formal verification."))

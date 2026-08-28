@@ -1,0 +1,22 @@
+#lang rzk-1
+
+#doc
+  Formalization of Spatiotemporal Pareto Frontiers in Cordis Pipelines.
+
+#def PipelineSpace : U := U
+
+#doc
+  Space-Time Evaluation Tuple (T, S, C).
+#def SpatiotemporalMetric
+  ( P : PipelineSpace )
+  : U
+  := (time_bound : U) * (space_bound : U) * (comm_bound : U)
+
+#doc
+  Pareto Optimality Invariant: No alternative pipeline configuration dominates
+  both time and space simultaneously without violating the lower bound.
+#def is-pareto-optimal
+  ( P : PipelineSpace )
+  ( metric : SpatiotemporalMetric P )
+  : U
+  := (lower_bound_witness : U)

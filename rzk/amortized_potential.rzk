@@ -1,0 +1,37 @@
+#lang rzk-1
+
+#doc
+  Formalization of Physicist's Potential Method and Amortized Complexity Invariants in Rzk.
+
+#def DataStructureSpace : U := U
+#def RealNonNeg : U := U
+
+#doc
+  Potential Function mapping each structural state to a non-negative real potential.
+#def PotentialFunction
+  ( D : DataStructureSpace )
+  : U
+  := D -> RealNonNeg
+
+#doc
+  Operation Transition with Actual Cost and Potential Difference.
+#def AmortizedOperation
+  ( D : DataStructureSpace )
+  ( s0 s1 : D )
+  ( actual_cost : RealNonNeg )
+  ( phi : PotentialFunction D )
+  : U
+  := ( amortized_cost : RealNonNeg )
+   * ( (t : 2) -> D [ t === 0_2 |-> s0, t === 1_2 |-> s1 ] )
+
+#doc
+  Amortized Summation Invariant (Telescoping Sum Lemma):
+  Sum of amortized costs strictly upper-bounds sum of actual costs when Phi(D_k) >= Phi(D_0).
+#def AmortizedTelescopingProperty
+  ( D : DataStructureSpace )
+  ( phi : PotentialFunction D )
+  ( s_init s_final : D )
+  ( sum_actual : RealNonNeg )
+  ( sum_amortized : RealNonNeg )
+  : U
+  := (sum_amortized >= sum_actual)

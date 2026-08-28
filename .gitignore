@@ -1,0 +1,25 @@
+# Build artifacts
+_build/
+*.exe
+*.cmo
+*.cmi
+*.cmx
+*.o
+*.a
+*.cmxa
+*.annot
+*.spot
+*.spit
+
+# Editor & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+*~
+
+# Logs & Environment
+*.log
+.env
