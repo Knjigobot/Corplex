@@ -1,15 +1,18 @@
 @echo off
-title Corplex Desktop (Cordis Complexity Analysis Runtime)
+title Corplex Native OxCaml Engine
 cd /d "%~dp0"
 echo ======================================================
-echo  CORPLEX DESKTOP PLATFORM (CORDIS RUNTIME)
-echo  Spatiotemporal Complexity Analysis Engine in OxCaml
-echo  Starting 24/7/365 Local Runtime...
+echo  CORPLEX NATIVE ENGINE (CORDIS & OXCAML)
+echo  Spatiotemporal Complexity Analysis Platform
 echo ======================================================
-if exist "gui\server.js" (
-    node gui\server.js
-) else if exist "server.js" (
-    node server.js
+where dune >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    echo [*] Building Corplex with Dune...
+    dune build @all
+    echo [*] Running Corplex Native CLI...
+    dune exec bin/main.exe
 ) else (
-    start "" "gui\index.html"
+    echo [*] Native OxCaml Dune build toolchain required.
+    echo [*] Install via: opam install dune ocaml
 )
+pause

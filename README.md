@@ -1,10 +1,11 @@
 # Corplex: Cordis-Style Spatiotemporal Complexity Analysis Kernel in OxCaml
 
-**Corplex** is a formal, high-performance static and dynamic complexity analysis engine combining:
-1. **Cordis Meta-Framework Architecture** (Spatiotemporal Composability, dynamic coeffects, algebraic effects, reversible execution trails, and live-sync zero-refresh runtime).
-2. **OxCaml & Jane Street Mindset** (Strict algebraic data types, modal unboxed layouts, zero-allocation design, GADTs, explicit error handling, Master Theorem / Akra-Bazzi recurrence solving, and amortized potential analysis $\Phi$).
-3. **Rzk Formal Verification** (Synthetic $\infty$-categories and simplicial homotopy type theory for formalizing computational step paths, amortized potential inequalities, and spatiotemporal cost bounds).
-4. **Interactive GUI & Live Execution Platform** (Real-time code analysis, AST/CFG structural parsing, empirical multi-sample regression profiler with $R^2$ confidence, 2D/3D Big-$O$ comparisons, and Cordis SSE live-sync desktop server).
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![OCaml 5+](https://img.shields.io/badge/OCaml-5.0%2B-orange.svg)](https://ocaml.org)
+[![OxCaml Ready](https://img.shields.io/badge/OxCaml-Modal%20Unboxed-green.svg)](https://github.com/janestreet)
+[![Formal Verification: Rzk](https://img.shields.io/badge/Rzk-Formalized-purple.svg)](https://rzk-lang.github.io)
+
+**Corplex** is a formal, high-performance static and dynamic complexity analysis engine written entirely in native **OxCaml** (OCaml 5+ with Jane Street modal types and algebraic effects), mechanized in **Rzk** simplicial homotopy type theory, and built on the **Cordis-OxCaml** meta-framework.
 
 ---
 
@@ -20,10 +21,10 @@
 |    - Divide-and-Conquer |    - Dynamic Coeffects      |    - Sliding Sample Buffers |  - Zero-GC  |
 |    - Pareto Frontiers   |    - Auxiliary vs Resident  |    - Recurrence Solvers     |  - Result/Or|
 +-------------------------+-----------------------------+-----------------------------+-------------+
-|    STATIC AST & CFG ANALYZER   <=====>   EMPIRICAL PROFILER ENGINE   <=====>   CORDIS DESKTOP GUI |
-|    - Cyclomatic Complexity (M)           - Multi-Sample Benchmarking           - Live Code Editor |
-|    - Halstead Volume & Depth             - Non-linear O-class Regression       - 3D/2D Big-O Plot |
-|    - Recurrence Equation Extraction      - R^2 & AIC Model Ranking             - Amortized Visual |
+|    STATIC AST & CFG ANALYZER   <=====>   EMPIRICAL PROFILER ENGINE   <=====>   NATIVE CLI HARNESS |
+|    - Cyclomatic Complexity (M)           - Multi-Sample Benchmarking           - Interactive CLI  |
+|    - Halstead Volume & Depth             - Non-linear O-class Regression       - Step Derivations |
+|    - Recurrence Equation Extraction      - R^2 & AIC Model Ranking             - Invariant Checks |
 +---------------------------------------------------------------------------------------------------+
 ```
 
@@ -39,7 +40,7 @@
 2. **Amortized Analysis ($\Phi$ Potential & Accounting)**:
    - Physicist's Potential Method: tracking $\Phi(D_i)$ across sequence operations.
    - Real-time verification of $\sum a_i = \sum c_i + \Phi(D_k) - \Phi(D_0) \ge \sum c_i$.
-   - Interactive simulations for Dynamic Array doubling, Splay Tree zig-zig/zig-zag rotations, and Cordis Ring Buffers.
+   - Simulations for Dynamic Array doubling and Cordis Ring Buffers.
 
 3. **Static AST & CFG Analyzer**:
    - Control Flow Graph construction from OxCaml / Cordis code.
@@ -54,28 +55,20 @@
    - Mechanized proofs in Simplicial Homotopy Type Theory on directed interval shapes $\Delta^1 = 2$.
    - Proves monotonicity of step reduction paths and non-negativity of amortized potential invariants.
 
-6. **Cordis Zero-Refresh Live Desktop Platform (`gui/`)**:
-   - Glassmorphism dark-mode UI with live real-time analysis, interactive graphs, and algorithm presets.
-   - Zero-dependency Node.js HTTP server with Server-Sent Events (SSE) live sync.
-
 ---
 
 ## 🚀 Quick Start
 
-### 1. Launch the Desktop Platform
-Run the 1-click batch launcher:
-```cmd
-RUN.bat
-```
-or launch manually:
-```cmd
-node Corplex\gui\server.js
-```
-Then open `http://localhost:8090` in your browser.
+### 1. Build and Run with Dune
+```bash
+# Build the native library and executable
+dune build @all
 
-### 2. Run Test Suite
-```cmd
-node Corplex\test\test_runner.js
+# Run the native CLI
+dune exec bin/main.exe
+
+# Run the test suite
+dune runtest
 ```
 
 ---
@@ -83,7 +76,7 @@ node Corplex\test\test_runner.js
 ## 📜 License & Attributions
 
 Released under the **MIT License** with attributions to:
-* **Cordis Meta-Framework**: [cordiverse/cordis](https://github.com/cordiverse/cordis) (DeepSeek-AI / Shigma)
+* **Cordis-OxCaml Meta-Framework**: [cordiverse/cordis](https://github.com/cordiverse/cordis) (DeepSeek-AI / Shigma)
 * **OxCaml**: [Jane Street](https://github.com/janestreet)
 * **Rzk**: [Rzk Proof Assistant](https://github.com/rzk-lang/rzk)
 

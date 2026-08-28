@@ -1,0 +1,5 @@
+(executable
+ (name main)
+ (public_name corplex)
+ (libraries corplex)
+ (modules main))
