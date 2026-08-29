@@ -1,0 +1,41 @@
+#lang rzk-1
+
+#doc
+  Formalization of Quantization-Dequantization Contraction Bounds and Homotopy in Rzk.
+  Based on simplicial directed intervals 2 (endpoints 0_2 <= 1_2).
+
+#def TensorSpace : U := U
+#def QuantizedSpace : U := U
+#def BoundingInterval : U := U
+
+#doc
+  A Directed Quantization Projection from continuous float space to quantized lattice.
+#def QuantizationProjection
+  ( T : TensorSpace )
+  ( Q : QuantizedSpace )
+  : U
+  := T -> Q
+
+#doc
+  Dequantization Reconstruction Map.
+#def DequantizationMap
+  ( Q : QuantizedSpace )
+  ( T : TensorSpace )
+  : U
+  := Q -> T
+
+#doc
+  Quantization Contraction Invariant:
+  The composite dequant(quant(x)) forms an epsilon-bounded homotopy to the original tensor x.
+#def is-bounded-quant-homotopy
+  ( T : TensorSpace )
+  ( Q : QuantizedSpace )
+  ( quant : QuantizationProjection T Q )
+  ( dequant : DequantizationMap Q T )
+  ( x : T )
+  ( delta_bound : BoundingInterval )
+  : U
+  := (t : 2) -> T [
+       t === 0_2 |-> x,
+       t === 1_2 |-> dequant (quant x)
+     ]

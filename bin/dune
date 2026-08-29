@@ -2,4 +2,5 @@
  (name main)
  (public_name corplex)
  (libraries corplex)
+ (flags (:standard -w -33-32-34-27-39))
  (modules main))

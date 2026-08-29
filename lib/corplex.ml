@@ -10,6 +10,10 @@ module Amortized = Amortized
 module Spatiotemporal = Spatiotemporal_complexity
 module DynamicProfiler = Dynamic_profiler
 module MagicTrace = Magic_trace
+module TensorInvariants = Tensor_invariants
+module QuantAudit = Quant_audit
+module CacheTrace = Cache_trace
+module CodecFuzz = Codec_fuzz
 
 let analyze_recurrence ~a ~b ~c ~k =
   RecurrenceSolver.solve_master_theorem ~a ~b ~c ~k

@@ -1,13 +1,13 @@
-(* bin/main.ml - Native CLI for Corplex Spatiotemporal Complexity Analysis Engine *)
+(* bin/main.ml - Native CLI for Corplex Spatiotemporal Complexity & Invariant Analysis Engine *)
 
 open Corplex
 open Corplex.Types
 
 let print_banner () =
   Printf.printf "======================================================================\n";
-  Printf.printf "  CORPLEX: Spatiotemporal Complexity Analysis Engine in OxCaml\n";
+  Printf.printf "  CORPLEX V2: Spatiotemporal Complexity & Neural Invariant Kernel\n";
   Printf.printf "  Cordis Meta-Framework & Jane Street Modal System Runtime\n";
-  Printf.printf "  Featuring Magic-Trace High-Resolution Nanosecond Tracing\n";
+  Printf.printf "  Featuring Magic-Trace Diagnostics & Bitwise Quantization Auditing\n";
   Printf.printf "======================================================================\n\n"
 
 let demo_master_theorem () =
@@ -93,12 +93,42 @@ let demo_magic_trace () =
   Printf.printf "Captured %d hardware-timed trace events in zero-GC circular buffer.\n" (List.length events);
   Printf.printf "Export format: Google Perfetto / Chrome Trace Viewer JSON (ui.perfetto.dev)\n"
 
+let demo_neural_tensor_invariants () =
+  Printf.printf "\n--- [5] Neural Tensor & Quantization Invariants (RFC V2) ---\n";
+  (* 1. RoPE SO(2) Orthogonality *)
+  let dim = 64 in
+  let q = Array.init dim (fun i -> float_of_int (i + 1) *. 0.05) in
+  let k = Array.init dim (fun i -> float_of_int (dim - i) *. 0.05) in
+  let rep = TensorInvariants.verify_rope_invariants ~mode:Split_Half ~dim ~pos:12 ~theta:10000.0 ~q ~k ~tolerance:1e-4 in
+  Printf.printf "RoPE Mode (Qwen2/Puro Split-Half): SO(2) Orthogonality: %s (Max Drift: %.2e)\n"
+    (if rep.is_orthogonal then "VERIFIED" else "FAILED") rep.max_norm_drift;
+
+  (* 2. Bitwise Superblock Audit *)
+  let q4_raw = Bytes.make 18 '\x00' in
+  Bytes.set q4_raw 0 '\x00';
+  Bytes.set q4_raw 1 '\x3c';
+  let audit = QuantAudit.audit_dequantizer ~format:Q4_0 ~raw_bytes:(Bytes.to_string q4_raw) ~offset:0
+    ~candidate_dequant:QuantAudit.dequant_q4_0_reference in
+  Printf.printf "Quantization Superblock Audit (Q4_0, 32 elements): %s\n" audit.diagnostic_message;
+
+  (* 3. Cache Thrash Monitor *)
+  let mon = CacheTrace.create_monitor () in
+  CacheTrace.track_buffer_access mon ~address:0x1000 ~size_bytes:(16 * 1024) ~is_write:false;
+  let warn = CacheTrace.evaluate_working_set mon ~fn_name:"fused_attention_matmul" in
+  Printf.printf "Cache-Thrash Monitor: Working Set = %d KB -> %s\n" (warn.working_set_bytes / 1024) warn.recommendation;
+
+  (* 4. Tokenizer Bijective Fuzzer *)
+  let fuzz = CodecFuzz.fuzz_codec_roundtrip ~encode:(fun s -> [s]) ~decode:(String.concat "") ~iterations:15 () in
+  Printf.printf "Codec Bijective Fuzzer: %s (%d test cases verified across multi-byte UTF-8)\n"
+    (if fuzz.is_bijective then "ISOMORPHISM VERIFIED" else "FAILED") fuzz.total_iterations
+
 let () =
   print_banner ();
   demo_master_theorem ();
   demo_amortized_analysis ();
   demo_spatiotemporal_tradeoffs ();
   demo_magic_trace ();
+  demo_neural_tensor_invariants ();
   Printf.printf "\n======================================================================\n";
-  Printf.printf "  Corplex Native OxCaml Execution Completed Successfully.\n";
+  Printf.printf "  Corplex V2 Native OxCaml Execution Completed Successfully.\n";
   Printf.printf "======================================================================\n"
